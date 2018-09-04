@@ -1,18 +1,61 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloWorld :msg=msg v-on:new-message="pushMessage"/>
+    <Launcher
+      :agentProfile=agentProfile
+      :messageList=messages
+      :isOpen=isOpen
+      :newMessagesCount=newMessagesCount
+      :showEmoji=showEmoji
+      v-on:new-message="pushMessage"
+      />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
+import Launcher from './components/Launcher.vue';
+import messageHistory from './messageHistory';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Launcher, HelloWorld
+  },
+  data: function() {
+    return {
+      msg: 'Vue Live Chat',
+      messageList: messageHistory,
+      newMessagesCount: 0,
+      isOpen: false,
+      agentProfile: {
+        teamName: 'vue-live-chat',
+        imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
+      },
+      showEmoji: true
+      
+    }
+  },
+  
+  computed: {
+    messages: function() {
+      return this.messageList;
+    }
+  },
+  
+  
+  methods: {
+    pushMessage: function(message) {
+      let _messages = this.messageList;
+      _messages.push(message);
+      this.messageList = _messages;
+      
+      
+    }
   }
+
+
 }
 </script>
 
