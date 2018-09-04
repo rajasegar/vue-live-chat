@@ -1,7 +1,7 @@
 <template>
   <div class="sc-message-list"  >
     <template v-for="message in messages">
-          <Message :message=message  />
+          <Message :message=message  :key="message" />
     </template>
       </div>
 </template>

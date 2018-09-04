@@ -19,7 +19,6 @@
 
     methods: {
       handleClick: function() {
-        console.log('from Header');
         this.onClose();
       }
     }
