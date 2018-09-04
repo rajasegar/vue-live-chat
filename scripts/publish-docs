@@ -1,0 +1,14 @@
+#!/bin/sh
+
+npm run build
+mkdir /tmp/vue-live-chat
+cp -R dist/* /tmp/vue-live-chat
+git checkout .
+git checkout gh-pages
+rm README.md package-lock.json package.json babel.config.js 
+rm -Rf dist/ public/ src/
+cp -R /tmp/vue-live-chat/* ./
+git add .
+git commit -m "Publishing docs for $(git log -1 --pretty=%B)"
+git push origin gh-pages
+git checkout master
